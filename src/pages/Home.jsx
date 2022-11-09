@@ -25,9 +25,15 @@ class Home extends Component {
     const { search } = this.state;
     if (search.length > 0) {
       const response = await api.getProductsFromCategoryAndQuery(null, search);
-      console.log(response);
       this.setState({ responseSearch: response.results });
     }
+  };
+
+  handleSearchClick = async ({ target }) => {
+    const { id } = target;
+    const response = await api.getProductsFromCategoryAndQuery(id, null);
+    console.log(response);
+    this.setState({ responseSearch: response.results });
   };
 
   render() {
@@ -73,6 +79,7 @@ class Home extends Component {
                 type="button"
                 id={ category.id }
                 name={ category.name }
+                onClick={ this.handleSearchClick }
               >
                 {category.name}
 
