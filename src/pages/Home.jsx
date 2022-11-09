@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
@@ -14,6 +15,13 @@ class Home extends Component {
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
+        <Link
+          to="/ShoppingCart"
+          data-testid="shopping-cart-button"
+        >
+          <img src="#" alt="carrinho" id="carrinho" />
+
+        </Link>
       </div>
     );
   }
