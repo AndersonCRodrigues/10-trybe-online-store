@@ -34,6 +34,13 @@ class Home extends Component {
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
+        <Link
+          to="/ShoppingCart"
+          data-testid="shopping-cart-button"
+        >
+          <img src="#" alt="carrinho" id="carrinho" />
+
+        </Link>
         <aside>
           {
             categories.map((category) => (
