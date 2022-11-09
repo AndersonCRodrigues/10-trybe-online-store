@@ -25,22 +25,16 @@ class Home extends Component {
           />
         </label>
         <Link
-          to="/carrinho"
+          to="/ShoppingCart"
           data-testid="shopping-cart-button"
         >
           <img src={ carrinho } alt="carrinho" id="carrinho" />
 
         </Link>
+
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
-        <Link
-          to="/ShoppingCart"
-          data-testid="shopping-cart-button"
-        >
-          <img src="#" alt="carrinho" id="carrinho" />
-
-        </Link>
         <aside>
           {
             categories.map((category) => (
