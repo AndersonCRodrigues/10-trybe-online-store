@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { getProductById } from '../services/api';
+import CartButton from '../components/CartButton';
 
 class ProductDetail extends Component {
   state = {
@@ -19,6 +20,7 @@ class ProductDetail extends Component {
     console.log(product);
     return (
       <div>
+        <CartButton />
         <span data-testid="product-detail-name">{product.title}</span>
         <span data-testid="product-detail-price">{product.price}</span>
         <img
