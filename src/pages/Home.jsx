@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import * as api from '../services/api';
-import carrinho from '../image/carrinho.png';
 import ProductCard from '../components/ProductCard';
+import CartButton from '../components/CartButton';
 
 class Home extends Component {
   state = {
@@ -58,13 +58,7 @@ class Home extends Component {
           Pesquisar
 
         </button>
-        <Link
-          to="/ShoppingCart"
-          data-testid="shopping-cart-button"
-        >
-          <img src={ carrinho } alt="carrinho" id="carrinho" />
-
-        </Link>
+        <CartButton />
 
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
@@ -92,6 +86,7 @@ class Home extends Component {
           {responseSearch.length === 0 ? <p>Nenhum produto foi encontrado</p> : (
             responseSearch.map((product) => (<ProductCard
               key={ product.id }
+              id={ product.id }
               title={ product.title }
               thumbnail={ product.thumbnail }
               price={ product.price }
