@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import * as api from '../services/api';
 import ProductCard from '../components/ProductCard';
 import CartButton from '../components/CartButton';
+import { saveCart } from '../services/localStorage';
 
 class Home extends Component {
   state = {
@@ -32,8 +33,14 @@ class Home extends Component {
   handleSearchClick = async ({ target }) => {
     const { id } = target;
     const response = await api.getProductsFromCategoryAndQuery(id, null);
-    console.log(response);
     this.setState({ responseSearch: response.results });
+  };
+
+  handleAddToCart = ({ target }) => {
+    const { id } = target;
+    const { responseSearch } = this.state;
+    const obj = responseSearch.find((item) => item.title === id);
+    saveCart(obj);
   };
 
   render() {
@@ -90,6 +97,7 @@ class Home extends Component {
               title={ product.title }
               thumbnail={ product.thumbnail }
               price={ product.price }
+              handleAddToCart={ this.handleAddToCart }
             />))
           ) }
         </section>

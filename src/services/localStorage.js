@@ -1,0 +1,61 @@
+export const saveCart = (obj) => {
+  if (localStorage.ShoppingCart) {
+    let listaCarrinho = JSON.parse(localStorage.getItem('ShoppingCart'));
+    const verifica = listaCarrinho.some((item) => item.title === obj.title);
+
+    if (verifica) {
+      const getItem = listaCarrinho.find((item) => item.title === obj.title);
+      getItem.quantidade += 1;
+
+      let allItems = listaCarrinho.filter((item) => item.title !== obj.title);
+      allItems = [...allItems, getItem];
+      localStorage.setItem('ShoppingCart', JSON.stringify(allItems));
+    } else {
+      const item = {
+        title: obj.title,
+        price: obj.price,
+        quantidade: 1,
+      };
+
+      listaCarrinho = [...listaCarrinho, item];
+      localStorage.setItem('ShoppingCart', JSON.stringify(listaCarrinho));
+    }
+  } else {
+    const item = {
+      title: obj.title,
+      price: obj.price,
+      quantidade: 1,
+    };
+
+    const listaCarrinho = [item];
+    localStorage.setItem('ShoppingCart', JSON.stringify(listaCarrinho));
+  }
+};
+
+export const removeCart = (obj) => {
+  const listaCarrinho = JSON.parse(localStorage.getItem('ShoppingCart'));
+  const filtro = listaCarrinho.find((item) => item.name === obj.name);
+  filtro.quantidade -= 1;
+
+  if (filtro.quantidade === 0) {
+    const remove = listaCarrinho.filter((item) => item.name !== obj.name);
+    localStorage.setItem('ShoppingCart', JSON.stringify(remove));
+  } else {
+    let remove = listaCarrinho.filter((item) => item.name !== obj.name);
+    remove = [...remove, filtro];
+    localStorage.setItem('ShoppingCart', JSON.stringify(remove));
+  }
+};
+
+export const deleteItem = (obj) => {
+  const remove = listaCarrinho.filter((item) => item.name !== obj.name);
+  localStorage.setItem('ShoppingCart', JSON.stringify(remove));
+};
+
+export const loadCart = () => {
+  if (localStorage.ShoppingCart) {
+    const listaCarrinho = JSON.parse(localStorage.getItem('ShoppingCart'));
+    return listaCarrinho;
+  }
+  return [];
+};
