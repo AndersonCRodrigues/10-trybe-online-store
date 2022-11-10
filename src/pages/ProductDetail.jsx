@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import CartButton from '../components/CartButton';
 import { saveCart } from '../services/localStorage';
@@ -8,7 +7,6 @@ import { saveCart } from '../services/localStorage';
 class ProductDetail extends Component {
   state = {
     product: {},
-    responseSearch: [],
   };
 
   async componentDidMount() {
@@ -18,17 +16,13 @@ class ProductDetail extends Component {
     this.setState({ product });
   }
 
-  addToCart = ({ target }) => {
-    const { id } = target;
-    const { responseSearch } = this.state;
-    const obj = responseSearch.find((item) => item.title === id);
-    saveCart(obj);
+  addToCart = () => {
+    const { product } = this.state;
+    saveCart(product);
   };
 
   render() {
     const { product } = this.state;
-    // console.log(product);
-    const { title } = this.props;
     return (
       <div>
         <CartButton />
@@ -51,18 +45,12 @@ class ProductDetail extends Component {
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={ () => this.addToCart(product) }
-          name={ title }
+          onClick={ this.addToCart }
+          name={ product.title }
         >
           Adicionar ao Carrinho
 
         </button>
-        <Link
-          data-testid="shopping-cart-button"
-          to="/shoppingcart"
-        >
-          Ir para o carrinho
-        </Link>
       </div>
     );
   }
