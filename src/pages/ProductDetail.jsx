@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { getProductById } from '../services/api';
 import CartButton from '../components/CartButton';
+import { saveCart } from '../services/localStorage';
 
 class ProductDetail extends Component {
   state = {
@@ -15,9 +16,13 @@ class ProductDetail extends Component {
     this.setState({ product });
   }
 
+  addToCart = () => {
+    const { product } = this.state;
+    saveCart(product);
+  };
+
   render() {
     const { product } = this.state;
-    console.log(product);
     return (
       <div>
         <CartButton />
@@ -37,6 +42,15 @@ class ProductDetail extends Component {
             ))
           }
         </ul> */}
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ this.addToCart }
+          name={ product.title }
+        >
+          Adicionar ao Carrinho
+
+        </button>
       </div>
     );
   }
