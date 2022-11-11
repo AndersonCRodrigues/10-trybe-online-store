@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CartCard from '../components/CartCard';
-import { loadCart, removeCart, saveCart } from '../services/localStorage';
+import { deleteItem, loadCart, removeCart, saveCart } from '../services/localStorage';
 
 class ShoppingCart extends Component {
   state = {
@@ -18,20 +18,23 @@ class ShoppingCart extends Component {
   };
 
   increaseHandleChange = ({ target }) => {
+    const { productList } = this.state;
     const obj = productList.find((item) => item.title === target.name);
     saveCart(obj);
     this.handleLoad();
   };
 
   decreaseHandleChange = ({ target }) => {
+    const { productList } = this.state;
     const obj = productList.find((item) => item.title === target.name);
     removeCart(obj);
     this.handleLoad();
   };
 
   removeHandleChange = ({ target }) => {
+    const { productList } = this.state;
     const obj = productList.find((item) => item.title === target.name);
-    loadCart(obj);
+    deleteItem(obj);
     this.handleLoad();
   };
 

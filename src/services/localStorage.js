@@ -38,17 +38,20 @@ export const removeCart = (obj) => {
   filtro.quantidade -= 1;
 
   if (filtro.quantidade === 0) {
-    const remove = listaCarrinho.filter((item) => item.name !== obj.name);
+    filtro.quantidade = 1;
+    let remove = listaCarrinho.filter((item) => item.title !== obj.title);
+    remove = [...remove, filtro];
     localStorage.setItem('ShoppingCart', JSON.stringify(remove));
   } else {
-    let remove = listaCarrinho.filter((item) => item.name !== obj.name);
+    let remove = listaCarrinho.filter((item) => item.title !== obj.title);
     remove = [...remove, filtro];
     localStorage.setItem('ShoppingCart', JSON.stringify(remove));
   }
 };
 
 export const deleteItem = (obj) => {
-  const remove = listaCarrinho.filter((item) => item.name !== obj.name);
+  const listaCarrinho = JSON.parse(localStorage.getItem('ShoppingCart'));
+  const remove = listaCarrinho.filter((item) => item.title !== obj.title);
   localStorage.setItem('ShoppingCart', JSON.stringify(remove));
 };
 
