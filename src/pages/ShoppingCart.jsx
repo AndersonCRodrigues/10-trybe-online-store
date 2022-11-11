@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
 import CartCard from '../components/CartCard';
-import { loadCart } from '../services/localStorage';
+import { deleteItem, loadCart, removeCart, saveCart } from '../services/localStorage';
 
 class ShoppingCart extends Component {
   state = {
     productList: [],
+    // increaseHandleChange: this.increaseHandleChange
   };
 
   componentDidMount() {
+    this.handleLoad();
+  }
+
+  handleLoad = () => {
     const productList = loadCart();
     this.setState({ productList });
-  }
+  };
+
+  increaseHandleChange = ({ target }) => {
+    const { productList } = this.state;
+    const obj = productList.find((item) => item.title === target.name);
+    saveCart(obj);
+    this.handleLoad();
+  };
+
+  decreaseHandleChange = ({ target }) => {
+    const { productList } = this.state;
+    const obj = productList.find((item) => item.title === target.name);
+    removeCart(obj);
+    this.handleLoad();
+  };
+
+  removeHandleChange = ({ target }) => {
+    const { productList } = this.state;
+    const obj = productList.find((item) => item.title === target.name);
+    deleteItem(obj);
+    this.handleLoad();
+  };
 
   render() {
     const { productList } = this.state;
@@ -22,12 +48,17 @@ class ShoppingCart extends Component {
           >
             Seu carrinho está vazio
           </h2>)}
-        {productList.length > 0 && productList.map((item) => (<CartCard
-          key={ item.title }
-          title={ item.title }
-          price={ item.price }
-          quantidade={ item.quantidade }
-        />)) }
+        {productList.length > 0 && productList.map((item) => (
+          <CartCard
+            key={ item.title }
+            title={ item.title }
+            price={ item.price }
+            quantidade={ item.quantidade }
+            increaseHandleChange={ this.increaseHandleChange }
+            decreaseHandleChange={ this.decreaseHandleChange }
+            removeHandleChange={ this.removeHandleChange }
+          />
+        )) }
       </div>
     );
   }
