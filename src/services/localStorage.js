@@ -62,3 +62,22 @@ export const loadCart = () => {
   }
   return [];
 };
+
+export const addComents = (id, obj) => {
+  if (localStorage[id]) {
+    let coments = JSON.parse(localStorage.getItem([id]));
+    coments = [...coments, obj];
+    localStorage.setItem([id], JSON.stringify(coments));
+  } else {
+    const coments = [obj];
+    localStorage.setItem([id], JSON.stringify(coments));
+  }
+};
+
+export const loadComents = (id) => {
+  if (localStorage[id]) {
+    const coments = JSON.parse(localStorage.getItem([id]));
+    return coments;
+  }
+  return [];
+};
